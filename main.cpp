@@ -1,8 +1,19 @@
+#include "FileMonitor.h"
+#include "FileState.h"
 #include <QCoreApplication>
+#include <iostream>
+using namespace std;
 
-int main(int argc, char *argv[])
-{
-    QCoreApplication a(argc, argv);
+void main(){
+    FileMonitor monitor;
+    FileMonitor.AddFile('a.txt');
+    FileMonitor.AddFile('b.txt');
+    FileMonitor.AddFile('c.txt');
+    FileMonitor.AddFile('d.txt');
 
-    return a.exec();
-}
+
+    while(doCheckObj){
+
+    FileMonitor.CheckStatus();
+
+};

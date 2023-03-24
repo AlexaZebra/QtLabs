@@ -1,3 +1,4 @@
+//FileState *objects;
 #include "FileState.h"
 #include <QVector>
 
