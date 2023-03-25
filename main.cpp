@@ -3,7 +3,6 @@
 #include "ChangeOutput.h"
 #include <QCoreApplication>
 #include <iostream>
-#include <QTimer>
 using namespace std;
 
 
