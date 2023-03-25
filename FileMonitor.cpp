@@ -27,7 +27,7 @@ void FileMonitor:: updateFileState(){                           // метод о
 
         else if (currentFile.getExist() != monitorFile.getExist() ){                                    // иначе проверяем, восстановили ли файл?
             infoFiles[i] = currentFile;                                                                 // корректируем
-            emit checkCreated(currentFile.getPath(), currentFile.getSize(), currentFile.getExist());    // информируем о восстановлении
+            emit checkRestored(currentFile.getPath(), currentFile.getSize(), currentFile.getExist());    // информируем о восстановлении
         }
 
         else if ( currentFile.getSize() != monitorFile.getSize()){                                      // если не то и не другое, то изменился ли файл?

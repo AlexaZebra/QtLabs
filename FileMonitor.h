@@ -18,7 +18,7 @@ public:
 
 signals:
     void StartMonitor(QString Path, qint64 Size);               // сигнал - файлы добавлены
-    void checkCreated(QString Path, qint64 Size, bool Exist);   // сигнал - файлы созданы
+    void checkRestored(QString Path, qint64 Size, bool Exist);   // сигнал - файлы созданы
     void checkChanged(QString Path, qint64 Size);               // сигнал - файлы изменены
     void checkDeleted(QString Path, bool Exist);                // сигнал - файлы удалены
 

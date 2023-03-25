@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
 
     // Устанавливаем соединения между сигналами и слотами
     QObject::connect(monitor, &FileMonitor::StartMonitor, &ChangeOutput::logStartMonitor);
-    QObject::connect(monitor, &FileMonitor::checkCreated, &ChangeOutput::logCreate);
+    QObject::connect(monitor, &FileMonitor::checkRestored, &ChangeOutput::logRestore);
     QObject::connect(monitor, &FileMonitor::checkChanged, &ChangeOutput::logChange);
     QObject::connect(monitor, &FileMonitor::checkDeleted, &ChangeOutput::logDelete);
 

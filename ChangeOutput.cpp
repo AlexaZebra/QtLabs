@@ -7,7 +7,7 @@ void ChangeOutput::logStartMonitor(QString fileName, qint64 Size) {
         wcout << L"Файл мониторится: " << fileName.toStdWString() << L" его размер: "<< Size << L" байт" << endl;
 }
 
-void ChangeOutput::logCreate(QString fileName, qint64 Size) {
+void ChangeOutput::logRestore(QString fileName, qint64 Size) {
         wcout << L"Файл был восстановлен: " << fileName.toStdWString() << L" его размер: "<< Size << L" байт" << endl;
 }
 
