@@ -3,9 +3,10 @@
 
 
 StateFile::StateFile(const QString& Path) { // конструктор с параметром
-    QFileInfo fileName(Path);
-    Size = fileName.size();
-    IsExist = fileName.exists();
+    QFileInfo infoFile(Path);
+    fileName = infoFile.absoluteFilePath();
+    Size = infoFile.size();
+    IsExist = infoFile.exists();
 }
 
 QString StateFile::getPath() const {
