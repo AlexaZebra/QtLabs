@@ -3,6 +3,7 @@
 #include "ChangeOutput.h"
 #include <QCoreApplication>
 #include <iostream>
+#include <QTimer>
 using namespace std;
 
 
@@ -20,15 +21,15 @@ int main(int argc, char* argv[])
     QObject::connect(monitor, &FileMonitor::checkDeleted, &ChangeOutput::logDelete);
 
     // Добавляем файлы для отслеживания
-    monitor->addFile("C:\\Users\\staro\\Lab_1\\files\\test1.txt");
-    monitor->addFile("C:\\Users\\staro\\Lab_1\\files\\test2.txt");
-    monitor->addFile("C:\\Users\\staro\\Lab_1\\files\\test3.txt");
-    monitor->addFile("C:\\Users\\staro\\Lab_1\\files\\test4.txt");
+    monitor->addFile("C:/Users/staro/Lab_1/files/test1.txt");
+    monitor->addFile("C:/Users/staro/Lab_1/files/test2.txt");
+    monitor->addFile("C:/Users/staro/Lab_1/files/test3.txt");
+    monitor->addFile("C:/Users/staro/Lab_1/files/test4.txt");
 
     // Запустим цикл котрый будет постоянно опрашивать изменения в файлах
-        while (1) {
-            monitor->updateFileState();
-        }
+    while (1) {
+        monitor->updateFileState();
+    }
 
     return a.exec();
 

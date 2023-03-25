@@ -5,43 +5,36 @@
 
 FileMonitor::FileMonitor(QObject* parent): QObject(parent){}
 
-void FileMonitor::addFile(const QString& Path){
+void FileMonitor::addFile(const QString& Path){                 // метод добавления файла
 
-    StateFile newFile(Path);
-    infoFiles.push_back(newFile);
+    StateFile newFile(Path);                                    // вытаскиваем информацию из файла в класс FileState
+    infoFiles.push_back(newFile);                               // добавляем в вектор infoFiles этот файл для мониторинга
 
-    emit StartMonitor(newFile.getPath(), newFile.getSize());
+    emit StartMonitor(newFile.getPath(), newFile.getSize());    // подаем сигнал о добавлении файла в мониторинг
 }
 
-void FileMonitor:: updateFileState(){
+void FileMonitor:: updateFileState(){                           // метод обновления информации в файлах
 
-    for (int i = 0; i < infoFiles.count(); i++) {       // цикл по файлам
+    for (int i = 0; i < infoFiles.count(); i++) {               // цикл по файлам
 
-        StateFile monitorFile(infoFiles[i].getPath());  // берем текущий i-ый файл
-        StateFile currentFile(monitorFile.getPath());   // новый файл, который возможно с изменениями
+        StateFile monitorFile(infoFiles[i]);                    // берем i-ый файл из мониторинга
+        StateFile currentFile(monitorFile.getPath());           // действительный файл
 
-        if (currentFile.getExist() && currentFile.getExist() != monitorFile.getExist()){
-            infoFiles[i] = currentFile;
-            emit checkCreated(currentFile.getPath(), currentFile.getSize(), currentFile.getExist());
+        if (!currentFile.getExist() && currentFile.getExist() != monitorFile.getExist()){               // проверяем удалили ли файл из мониторинга?
+            infoFiles[i] = currentFile;                                                                 // если да, то вносим актуальную информацию
+            emit checkDeleted(currentFile.getPath(), currentFile.getExist());                           // подаем сигнал, что файл удален
         }
 
-        else if (currentFile.getExist() && currentFile.getSize() != monitorFile.getSize()){
-            infoFiles[i] = currentFile;
-            emit checkChanged(currentFile.getPath(), currentFile.getSize());
+        else if (currentFile.getExist() != monitorFile.getExist() ){                                    // иначе проверяем, восстановили ли файл?
+            infoFiles[i] = currentFile;                                                                 // корректируем
+            emit checkCreated(currentFile.getPath(), currentFile.getSize(), currentFile.getExist());    // информируем о восстановлении
         }
 
-        else if (!currentFile.getExist() && currentFile.getExist() != monitorFile.getExist())
-            emit checkDeleted(currentFile.getPath(), currentFile.getExist());
+        else if ( currentFile.getSize() != monitorFile.getSize()){                                      // если не то и не другое, то изменился ли файл?
+           infoFiles[i] = currentFile;                                                                  // если да, то обновляем информацию
+           emit checkChanged(currentFile.getPath(), currentFile.getSize());                             // сообщаем об изменении
+        }
+
+
     }
 }
-
-/*
-    если файл существует и не добавлен в мониторинг:
-        IsExist = true;
-        update size();
-    иначе если файл мониторится, но был изменен:
-        update size();
-    иначе если файл мониторится, но не существует:
-        IsExist = false;
-        update size();
-*/

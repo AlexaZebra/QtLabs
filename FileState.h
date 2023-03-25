@@ -13,7 +13,7 @@ private:
     bool IsExist;
 
 public:
-    StateFile() = default;          // конктруктор по умолчанию
+    StateFile() = default;          // конструктор по умолчанию
     StateFile(const QString& Path); // конструктор с параметром путь файла
     QString getPath() const;        // получить путь
     qint64 getSize() const;         // получить размер
