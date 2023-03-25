@@ -1,24 +1,23 @@
-#include <QString>
-#include <QFileInfo>
+#pragma once
 #ifndef FILESTATE_H
 #define FILESTATE_H
 
+#include <QString>
+#include <QFileInfo>
 
-class StateFile: public QObject     // данные файла
-{
+class StateFile{
+
 private:
-    Q_OBJECT
     QString fileName;
     qint64 Size = 0;
     bool IsExist;
 
 public:
+    StateFile() = default;          // конктруктор по умолчанию
     StateFile(const QString& Path); // конструктор с параметром путь файла
-    //~StateFile();
     QString getPath() const;        // получить путь
     qint64 getSize() const;         // получить размер
     bool getExist() const;          // получить статус существования
-
 };
 #endif // FILESTATE_H
 
