@@ -22,4 +22,5 @@ bool StateFile::getExist() const {
     return IsExist;
 }
 
+StateFile::~StateFile(){};
 

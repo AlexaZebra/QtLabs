@@ -5,6 +5,11 @@
 
 FileMonitor::FileMonitor(QObject* parent): QObject(parent){}
 
+FileMonitor* FileMonitor::Instance(){
+    static FileMonitor instance;
+    return &instance;
+}
+
 void FileMonitor::addFile(const QString& Path){                 // метод добавления файла
 
     StateFile newFile(Path);                                    // вытаскиваем информацию из файла в класс FileState
@@ -27,14 +32,14 @@ void FileMonitor:: updateFileState(){                           // метод о
 
         else if (currentFile.getExist() != monitorFile.getExist() ){                                    // иначе проверяем, восстановили ли файл?
             infoFiles[i] = currentFile;                                                                 // корректируем
-            emit checkRestored(currentFile.getPath(), currentFile.getSize(), currentFile.getExist());    // информируем о восстановлении
+            emit checkRestored(currentFile.getPath(), currentFile.getSize(), currentFile.getExist());   // информируем о восстановлении
         }
 
         else if ( currentFile.getSize() != monitorFile.getSize()){                                      // если не то и не другое, то изменился ли файл?
            infoFiles[i] = currentFile;                                                                  // если да, то обновляем информацию
            emit checkChanged(currentFile.getPath(), currentFile.getSize());                             // сообщаем об изменении
         }
-
-
     }
 }
+
+FileMonitor::~FileMonitor(){};

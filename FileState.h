@@ -14,6 +14,7 @@ private:
 
 public:
     StateFile() = default;          // конструктор по умолчанию
+    ~StateFile();                   // деструктор?
     StateFile(const QString& Path); // конструктор с параметром путь файла
     QString getPath() const;        // получить путь
     qint64 getSize() const;         // получить размер

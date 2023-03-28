@@ -9,11 +9,8 @@
 class ChangeOutput : public QObject
 {
 
-public:
-    ChangeOutput() = default;
-
 public slots:
-    // Функции статичны для возможности вызова их без создания экзепляра класса
+    // используется static, чтобы не создавать объект этого класса в main()
     static void logStartMonitor(QString fileName, qint64 Size);
     static void logRestore(QString fileName, qint64 Size);
     static void logChange(QString fileName, qint64 Size);
