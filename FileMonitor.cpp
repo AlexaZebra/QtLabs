@@ -5,9 +5,9 @@
 
 FileMonitor::FileMonitor(QObject* parent): QObject(parent){}
 
-FileMonitor* FileMonitor::Instance(){
+FileMonitor& FileMonitor::Instance(){
     static FileMonitor instance;
-    return &instance;
+    return instance;
 }
 
 void FileMonitor::addFile(const QString& Path){                 // метод добавления файла

@@ -12,10 +12,10 @@ private:
     Q_OBJECT
     QVector<StateFile> infoFiles;                           // контейнер с статистикой файла используется в методе addFile
     explicit FileMonitor(QObject* parent = nullptr);        // конструктор переехал в private
+    ~FileMonitor();                                         // деструктор?
 
 public:
-    static FileMonitor* Instance();                         // чтобы создавался при вызове один экземпляр класса на протяжении всего времени работы программы
-    ~FileMonitor();                                         // деструктор?
+    static FileMonitor& Instance();                         // чтобы создавался при вызове один экземпляр класса на протяжении всего времени работы программы
     void addFile(const QString& Path);                      // метод добавления нового файла
 
 signals:
