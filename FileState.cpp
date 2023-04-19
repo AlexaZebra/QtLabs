@@ -28,6 +28,3 @@ qint64 StateFile::getSize(){
 bool StateFile::getExist(){
     return IsExist;
 }
-
-StateFile::~StateFile(){};
-

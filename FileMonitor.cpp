@@ -50,4 +50,3 @@ void FileMonitor:: updateFileState(){                           // метод о
     }
 }
 
-FileMonitor::~FileMonitor(){};
