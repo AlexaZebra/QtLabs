@@ -10,21 +10,20 @@ class FileMonitor: public QObject
 
 private:
     Q_OBJECT
-    QVector<StateFile> infoFiles;                           // контейнер с статистикой файла используется в методе addFile
+    QVector<StateFile> infoFiles;                               // контейнер с информацией файла
 
 public:
-    explicit FileMonitor(QObject* parent = nullptr);        // конструктор
-    void addFile(const QString& Path);                      // метод добавления нового файла
+    FileMonitor() = default;                                    // конструктор
+    void addFile(const QString& Path);                          // метод добавления нового файла в мониторинг
+    void delFile(const QString& Path);                          // метод удаления файла из мониторинга
+    void updateFileState();                                     // метод для обновления информации о файлах
 
 signals:
-    void StartMonitor(QString Path, qint64 Size);               // сигнал - файлы добавлены
-    void checkCreated(QString Path, qint64 Size, bool Exist);   // сигнал - файлы созданы
-    void checkChanged(QString Path, qint64 Size);               // сигнал - файлы изменены
-    void checkDeleted(QString Path, bool Exist);                // сигнал - файлы удалены
-
-public slots:
-    void updateFileState();                                     // Слот для обновления информации о файлах
-
+    void StartMonitor(QString Path, qint64 Size);               // сигнал - файл добавлен в мониторинг
+    void FinishMonitor(QString Path);                           // сигнал - файл удален из мониторинга
+    void checkRestored(QString Path, qint64 Size);              // сигнал - файл создан
+    void checkChanged(QString Path, qint64 Size);                // сигнал - файл изменен
+    void checkDeleted(QString Path);                            // сигнал - файл удален
 
 };
 #endif // FILEMONITOR_H

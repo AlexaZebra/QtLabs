@@ -13,11 +13,12 @@ public:
     ChangeOutput() = default;
 
 public slots:
-    // Функции статичны для возможности вызова их без создания экзепляра класса
-    static void logStartMonitor(QString fileName, qint64 Size);
-    static void logCreate(QString fileName, qint64 Size);
-    static void logChange(QString fileName, qint64 Size);
-    static void logDelete(QString fileName);
+    void logStartMonitor(QString fileName, qint64 Size);
+    void logFinishMonitor(QString fileName);
+    void logRestore(QString fileName, qint64 Size);
+    void logChange(QString fileName, qint64 Size);
+    void logDelete(QString fileName);
+    void logChanges(QString fileName, qint64 Size);
 };
 
 #endif // CHANGEOUTPUT_H
