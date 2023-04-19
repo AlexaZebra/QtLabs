@@ -10,16 +10,14 @@ int main(int argc, char* argv[])
 {
     setlocale(LC_ALL, "Russian");
     QCoreApplication a(argc, argv);
-    FileMonitor monitor;    // создаем объект класса FileMonitor
-    ChangeOutput printer;   // создаем объект класса ChangeOut
-
+    FileMonitor& monitor = FileMonitor::Instance(); // Создаем объект класса FileMonitor
 
     // устанавливаем соединения между сигналами и слотами
-    QObject::connect(&monitor, &FileMonitor::StartMonitor, &printer, &ChangeOutput::logStartMonitor);
-    QObject::connect(&monitor, &FileMonitor::FinishMonitor, &printer, &ChangeOutput::logFinishMonitor);
-    QObject::connect(&monitor, &FileMonitor::checkRestored, &printer, &ChangeOutput::logRestore);
-    QObject::connect(&monitor, &FileMonitor::checkChanged, &printer, &ChangeOutput::logChange);
-    QObject::connect(&monitor, &FileMonitor::checkDeleted,&printer, &ChangeOutput::logDelete);
+    QObject::connect(&monitor, &FileMonitor::StartMonitor, &ChangeOutput::logStartMonitor);
+    QObject::connect(&monitor, &FileMonitor::FinishMonitor, &ChangeOutput::logFinishMonitor);
+    QObject::connect(&monitor, &FileMonitor::checkRestored, &ChangeOutput::logRestore);
+    QObject::connect(&monitor, &FileMonitor::checkChanged, &ChangeOutput::logChange);
+    QObject::connect(&monitor, &FileMonitor::checkDeleted, &ChangeOutput::logDelete);
 
     // добавляем файлы для отслеживания
     monitor.addFile("C:/Users/staro/Lab_1/files/test1.txt");

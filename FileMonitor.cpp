@@ -1,7 +1,12 @@
 #include "FileState.h"
 #include "FileMonitor.h"
+#include "ChangeOutput.h"
 
 
+FileMonitor& FileMonitor::Instance(){
+    static FileMonitor instance;
+    return instance;
+}
 
 void FileMonitor::addFile(const QString& Path){                         // метод добавления файла в мониторинг
 

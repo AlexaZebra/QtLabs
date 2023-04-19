@@ -8,17 +8,13 @@
 
 class ChangeOutput : public QObject
 {
-
-public:
-    ChangeOutput() = default;
-
 public slots:
-    void logStartMonitor(QString fileName, qint64 Size);
-    void logFinishMonitor(QString fileName);
-    void logRestore(QString fileName, qint64 Size);
-    void logChange(QString fileName, qint64 Size);
-    void logDelete(QString fileName);
-    void logChanges(QString fileName, qint64 Size);
+    static void logStartMonitor(QString fileName, qint64 Size);
+    static void logFinishMonitor(QString fileName);
+    static void logRestore(QString fileName, qint64 Size);
+    static void logChange(QString fileName, qint64 Size);
+    static void logDelete(QString fileName);
+    static void logChanges(QString fileName, qint64 Size);
 };
 
 #endif // CHANGEOUTPUT_H
