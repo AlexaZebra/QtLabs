@@ -12,21 +12,25 @@ int main(int argc, char* argv[])
     QCoreApplication a(argc, argv);
     FileMonitor& monitor = FileMonitor::Instance(); // Создаем объект класса FileMonitor
 
-    // Устанавливаем соединения между сигналами и слотами
+    // устанавливаем соединения между сигналами и слотами
     QObject::connect(&monitor, &FileMonitor::StartMonitor, &ChangeOutput::logStartMonitor);
-    QObject::connect(&monitor, &FileMonitor::checkRestored,&ChangeOutput::logRestore);
+    QObject::connect(&monitor, &FileMonitor::FinishMonitor, &ChangeOutput::logFinishMonitor);
+    QObject::connect(&monitor, &FileMonitor::checkRestored, &ChangeOutput::logRestore);
     QObject::connect(&monitor, &FileMonitor::checkChanged, &ChangeOutput::logChange);
     QObject::connect(&monitor, &FileMonitor::checkDeleted, &ChangeOutput::logDelete);
 
-    // Добавляем файлы для отслеживания
+    // добавляем файлы для отслеживания
     monitor.addFile("C:/Users/staro/Lab_1/files/test1.txt");
     monitor.addFile("C:/Users/staro/Lab_1/files/test2.txt");
     monitor.addFile("C:/Users/staro/Lab_1/files/test3.txt");
     monitor.addFile("C:/Users/staro/Lab_1/files/test4.txt");
 
-    // Запустим цикл котрый будет постоянно опрашивать изменения в файлах
-    while (1)
+    monitor.delFile("C:/Users/staro/Lab_1/files/test4.txt");
+
+    // цикл, котрый будет постоянно опрашивать изменения в файлах
+    while (1) {
         monitor.updateFileState();
+    }
 
     return a.exec();
 
