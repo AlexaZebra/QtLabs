@@ -11,12 +11,12 @@ class FileMonitor: public QObject
 private:
     Q_OBJECT
     QVector<StateFile> infoFiles;                               // контейнер с информацией файла
-    FileMonitor() = default;                                    // конструктор
+    FileMonitor();                                    // конструктор
 
 public:
     static FileMonitor& Instance();   // чтобы создавался при вызове один экземпляр класса на протяжении всего времени работы программы
-    void addFile(const QString& Path);                          // метод добавления нового файла в мониторинг
-    void delFile(const QString& Path);                          // метод удаления файла из мониторинга
+    bool addFile(const QString& Path);                          // метод добавления нового файла в мониторинг
+    bool delFile(const QString& Path);                          // метод удаления файла из мониторинга
     void updateFileState();                                     // метод для обновления информации о файлах
 
 signals:

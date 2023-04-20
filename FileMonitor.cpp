@@ -8,22 +8,37 @@ FileMonitor& FileMonitor::Instance(){
     return instance;
 }
 
-void FileMonitor::addFile(const QString& Path){                         // метод добавления файла в мониторинг
+FileMonitor::FileMonitor(){
+    // устанавливаем соединения между сигналами и слотами
+    QObject::connect(this, &FileMonitor::StartMonitor, &ChangeOutput::logStartMonitor);
+    QObject::connect(this, &FileMonitor::FinishMonitor, &ChangeOutput::logFinishMonitor);
+    QObject::connect(this, &FileMonitor::checkRestored, &ChangeOutput::logRestore);
+    QObject::connect(this, &FileMonitor::checkChanged, &ChangeOutput::logChange);
+    QObject::connect(this, &FileMonitor::checkDeleted, &ChangeOutput::logDelete);
+}
+
+bool FileMonitor::addFile(const QString& Path){                         // метод добавления файла в мониторинг
 
     StateFile newFile(Path);                                            // вытаскиваем информацию из файла в класс FileState
     if (!infoFiles.contains(newFile)){                                  // если файл не дублируется, то
         infoFiles.push_back(newFile);                                   // добавляем в вектор infoFiles этот файл для мониторинга
         emit StartMonitor(newFile.getPath(), newFile.getSize());        // подаем сигнал о добавлении файла в мониторинг
+        return true;
     }
+    else
+        return false;
 }
 
-void FileMonitor::delFile(const QString& Path){                         // метод удаления файла из мониторинга
+bool FileMonitor::delFile(const QString& Path){                         // метод удаления файла из мониторинга
 
-    StateFile removeFile(Path);
-    if (infoFiles.contains(removeFile)){
-        infoFiles.removeOne(removeFile);
-        emit FinishMonitor(removeFile.getPath());
+    StateFile oldFile(Path);
+    if (infoFiles.contains(oldFile)){
+        infoFiles.removeOne(oldFile);
+        emit FinishMonitor(oldFile.getPath());
+        return true;
     }
+    else
+        return false;
 }
 
 void FileMonitor:: updateFileState(){                           // метод обновления информации в файлах
