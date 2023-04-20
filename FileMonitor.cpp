@@ -45,20 +45,20 @@ void FileMonitor:: updateFileState(){                           // метод о
 
     for (int i = 0; i < infoFiles.count(); i++) {               // цикл по файлам
 
-        StateFile monitorFile(infoFiles[i]);                    // берем i-ый файл из мониторинга
-        StateFile currentFile(monitorFile.getPath());           // действительный файл
+        //StateFile monitorFile(infoFiles[i]);                    // берем i-ый файл из мониторинга
+        StateFile currentFile(infoFiles[i].getPath());           // действительный файл
 
-        if (!currentFile.getExist() && currentFile.getExist() != monitorFile.getExist()){               // проверяем удалили ли файл из мониторинга?
+        if (!currentFile.getExist() && currentFile.getExist() != infoFiles[i].getExist()){               // проверяем удалили ли файл из мониторинга?
             infoFiles[i] = currentFile;                                                                 // если да, то вносим актуальную информацию
             emit checkDeleted(currentFile.getPath());                                                   // подаем сигнал, что файл удален
         }
 
-        else if (currentFile.getExist() != monitorFile.getExist() ){                                    // иначе проверяем, восстановили ли файл?
+        else if (currentFile.getExist() != infoFiles[i].getExist() ){                                    // иначе проверяем, восстановили ли файл?
             infoFiles[i] = currentFile;                                                                 // корректируем
             emit checkRestored(currentFile.getPath(), currentFile.getSize());                          // информируем о восстановлении
         }
 
-        else if ( currentFile.getSize() != monitorFile.getSize()){                                      // если не то и не другое, то изменился ли файл?
+        else if ( currentFile.getSize() != infoFiles[i].getSize()){                                      // если не то и не другое, то изменился ли файл?
            infoFiles[i] = currentFile;                                                                  // если да, то обновляем информацию
            emit checkChanged(currentFile.getPath(), currentFile.getSize());                            // сообщаем об изменении
         }
