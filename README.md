@@ -19,4 +19,5 @@
 2. FileMonitor - добавляет файлы в мониторинг и следит за обновлением статуса файла: удален/восстановлен/изменен; используются сигналы и слоты.
 3. ChangeOutput - выводит в консоль то, что передают сигналы из класса мониторинга.
 
-https://github.com/AlexaZebra/first-QtLab/blob/master/UML_Lab_1.drawio.png
+![UML_Lab_1.drawio](https://github.com/AlexaZebra/first-QtLab/blob/master/UML_Lab_1.drawio.png)
+
